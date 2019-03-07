@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
-import ScatterJS from 'scatterjs-core';
-import ScatterEOS from 'scatterjs-plugin-eosjs';
+import IronmanJS from 'ironmanjs-core';
+import IronmanEOS from 'ironmanjs-plugin-eosjs';
 import { setSigner, loadNetworks, loadAccount } from './actions';
 import saga from './sagas/watchers';
 
@@ -25,11 +25,11 @@ export class NetworkClient extends React.Component {
     // start loading the reader asap
     this.props.loadNetworks();
 
-    ScatterJS.plugins( new ScatterEOS() );
-    ScatterJS.scatter.connect('EOSToolkit').then(connected => {
+    IronmanJS.plugins( new IronmanEOS() );
+    IronmanJS.ironman.connect('EOSToolkit').then(connected => {
       if(connected){
-          this.props.setSigner(ScatterJS.scatter);
-          window.ScatterJS = null;
+          this.props.setSigner(IronmanJS.ironman);
+          window.IronmanJS = null;
       }
     });
 
